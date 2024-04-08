@@ -53,6 +53,12 @@
           <div  style="padding: 10px 0">
             <el-input style="width: 200px" placeholder="请输入食品id" suffix-icon="el-icon-search"></el-input><el-button class="ml-5" >搜索</el-button>
           </div>
+          <div>
+            <el-button type="primary" @click="handleAdd">新增<i class="el-icon-circle-plus-outline"/></el-button>
+            <el-button type="danger">删除<i class="el-icon-circle-remove-outline"/></el-button>
+            <el-button type="primary">导入<i class="el-icon-bottom"/></el-button>
+            <el-button type="primary">导出<i class="el-icon-top"/></el-button>
+          </div>
           <el-table :data="tableData">
             <el-table-column prop="userid" label="姓名" width="140">
             </el-table-column>
@@ -78,6 +84,31 @@
                   :total="total">
               </el-pagination>
             </div>
+
+          <el-dialog title="用户信息" :visible.sync="dialogFormVisible" width="30%" >
+            <el-form label-width="80px" size="small">
+              <el-form-item label="用户名" >
+                <el-input v-model="form.userid" autocomplete="off"></el-input>
+              </el-form-item>
+              <el-form-item label="密码" >
+                <el-input v-model="form.password" autocomplete="off"></el-input>
+              </el-form-item>
+              <el-form-item label="电话" >
+                <el-input v-model="form.phone" autocomplete="off"></el-input>
+              </el-form-item>
+              <el-form-item label="地址" >
+                <el-input v-model="form.adress" autocomplete="off"></el-input>
+              </el-form-item>
+              <el-form-item label="其它信息" >
+                <el-input v-model="form.other" autocomplete="off"></el-input>
+              </el-form-item>
+            </el-form>
+            <div slot="footer" class="dialog-footer">
+              <el-button @click="dialogFormVisible = false">取 消</el-button>
+              <el-button type="primary" @click="save">确 定</el-button>
+            </div>
+          </el-dialog>
+
         </el-main>
       </el-container>
     </el-container>
@@ -87,6 +118,7 @@
 <script>
 // @ is an alias to /src
 import HelloWorld from '@/components/HelloWorld.vue'
+import request from "@/utils/request";
 
 export default {
   name: 'HomeView',
@@ -102,7 +134,9 @@ export default {
       sideWidth:200,
       total:0,
       pageNum:1,
-      pageSize:2
+      pageSize:2,
+      dialogFormVisible:false,
+      form:{}
     }
   },
   created() {
@@ -120,8 +154,13 @@ export default {
       }
     },
     load(){
-      fetch("http://localhost:8088/user/page?pageNum="+this.pageNum+"&pageSize="+this.pageSize).then(res=>res.json()).then(res=>{
-        console.log(res)
+      request.get("http://localhost:8088/user/page",{
+        params:{
+          pageNum:this.pageNum,
+          pageSize:this.pageSize,
+          username:this.username
+        }
+      }).then(res=>{console.log(res)
         this.tableData=res.data
         this.total=res.total
       })
@@ -133,6 +172,21 @@ export default {
     handleCurrentChange(pageNum){
       this.pageNum=pageNum
       this.load()
+    },
+    handleAdd(){
+      this.dialogFormVisible=true;
+      this.form={}
+    },
+    save(){
+      request.post("http://localhost:8088/user",this.form).then(res=>{
+        if(res){
+          this.$message.success("保存成功")
+          this.dialogFormVisible=false
+        }
+        else{
+          this.$message.error("保存失败")
+        }
+      })
     }
 
   }
