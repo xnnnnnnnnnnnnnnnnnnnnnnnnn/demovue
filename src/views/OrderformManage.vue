@@ -64,9 +64,9 @@
 
     <el-dialog title="商户信息" :visible.sync="dialogFormVisible" width="30%" >
       <el-form label-width="80px" size="small">
-        <el-form-item label="订单编号" >
-          <el-input v-model="form.orderid" autocomplete="off"></el-input>
-        </el-form-item>
+<!--        <el-form-item label="订单编号" >-->
+<!--          <el-input v-model="form.orderid" autocomplete="off"></el-input>-->
+<!--        </el-form-item>-->
         <el-form-item label="用户" >
           <el-input v-model="form.userid" autocomplete="off"></el-input>
         </el-form-item>
