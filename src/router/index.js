@@ -9,12 +9,19 @@ const routes = [
     path: '/',
     name: 'Manage',
     component: () => import('../views/Manage.vue'),
+    redirect:"/userManage", //直接跳转用户管理界面
     children:[
       {
         path: 'userManage',
         name: 'UserManage',
         component: () => import('../views/UserManage.vue'),
+      },
+      {
+        path: 'Manage',
+        name: 'UserManage',
+        component: () => import('../views/UserManage.vue'),
       }
+
     ]
   },
   {
