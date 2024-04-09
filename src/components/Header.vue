@@ -19,10 +19,10 @@ export default {
   name: "Header",
   props: {
     collapseBtnClass: String,
-    collapse:Boolean,
-
-  },
+    collapse:Boolean
+  }
 }
+
 </script>
 
 <style scoped>
