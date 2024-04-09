@@ -1,7 +1,7 @@
 <template>
 <div>
   <div  style="padding: 10px 0">
-    <el-input style="width: 200px" placeholder="请输入食品id" suffix-icon="el-icon-search"></el-input><el-button class="ml-5" >搜索</el-button>
+    <el-input style="width: 200px" placeholder="请输入用户id" suffix-icon="el-icon-search"></el-input><el-button class="ml-5" >搜索</el-button>
   </div>
   <div>
     <el-button type="primary" @click="handleAdd">新增<i class="el-icon-circle-plus-outline"/></el-button>
@@ -16,8 +16,8 @@
     >
       <el-button type="danger" slot="reference" >批量删除<i class="el-icon-circle-remove-outline"/></el-button>
     </el-popconfirm>
-    <el-button type="primary" class="ml-5">导入<i class="el-icon-bottom"/></el-button>
-    <el-button type="primary">导出<i class="el-icon-top"/></el-button>
+<!--    <el-button type="primary" class="ml-5">导入<i class="el-icon-bottom"/></el-button>-->
+<!--    <el-button type="primary">导出<i class="el-icon-top"/></el-button>-->
   </div>
   <el-table :data="tableData"  @selection-change="handleSelectionChange">
     <el-table-column type="selection" width="55"></el-table-column>
@@ -26,6 +26,8 @@
     <el-table-column prop="phone" label="电话" width="120">
     </el-table-column>
     <el-table-column prop="address" label="地址">
+    </el-table-column>
+    <el-table-column prop="other" label="其它信息">
     </el-table-column>
     <el-table-column label="操作">
       <template slot-scope="scope">

@@ -7,21 +7,40 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    name: 'Manage',
+    name: '首页',
     component: () => import('../views/Manage.vue'),
-    redirect:"/userManage", //直接跳转用户管理界面
+    // redirect:"/userManage", //直接跳转用户管理界面
     children:[
       {
         path: 'userManage',
-        name: 'UserManage',
+        name: '用户管理',
         component: () => import('../views/UserManage.vue'),
       },
       {
-        path: 'Manage',
-        name: 'UserManage',
-        component: () => import('../views/UserManage.vue'),
-      }
-
+        path: 'foodManage',
+        name: '食品管理',
+        component: () => import('../views/FoodManage.vue'),
+      },
+      {
+        path: 'page',
+        name: '主页',
+        component: () => import('../views/page.vue'),
+      },
+      {
+        path: 'supplierManage',
+        name: '商户管理',
+        component: () => import('../views/SupplierManage.vue'),
+      },
+      {
+        path: 'orderformManage',
+        name: '订单管理',
+        component: () => import('../views/OrderformManage.vue'),
+      },
+      {
+        path: 'transportManage',
+        name: '订单管理',
+        component: () => import('../views/TransportManage.vue'),
+      },
     ]
   },
   {
