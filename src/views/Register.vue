@@ -72,7 +72,7 @@ export default {
     };
     var  validatePass3 = (rule, value, callback) => {
       this.rename();
-      callback();
+        callback();
     };
 
     return {
@@ -114,7 +114,9 @@ export default {
     },
 
     resetForm(formName) {
+      console.log(formName);
       this.$refs[formName].resetFields();
+
     },
     goBack() {
       this.$router.push("/login");
@@ -123,7 +125,9 @@ export default {
       this.request.get("/user/select/"+this.ruleForm.userid).then(res => {
         if (res) {
           this.$message.error("该用户名已被使用，请重新注册");
+          this.resetForm('ruleForm')
         } else {
+
         }
       })
     }
