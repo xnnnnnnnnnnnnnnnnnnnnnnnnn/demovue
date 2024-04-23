@@ -2,7 +2,7 @@
   <div style="height: 100%">
     <el-container style="height: 100%">
       <el-aside width="sideWidth+'px'" style="background-color: rgb(238, 241, 246);height: 100%">
-        <AsideUser :isCollapse="isCollapse"/>
+        <AsideUser  :isCollapse="isCollapse"/>
       </el-aside>
 
       <el-container>
@@ -17,17 +17,17 @@
       </el-container>
     </el-container>
   </div>
+
 </template>
 
 <script>
-
-import AsideUser from "@/components/AsideUser";
 import Header from "@/components/Header";
+import AsideUser from "@/components/AsideUser";
 export default {
   name: 'ManageUser',
   components: {
-    Header,
     AsideUser,
+    Header,
   },
   data(){
     return {

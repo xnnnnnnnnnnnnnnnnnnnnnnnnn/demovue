@@ -113,6 +113,16 @@ const routes = [
     name: '注册',
     component: () => import('../views/Register.vue'),
   },
+  {
+    path: '/supplier/login',
+    name: '商户登录',
+    component: () => import('../views/LoginSupplier.vue'),
+  },
+  {
+    path: '/supplier/register',
+    name: '商户注册',
+    component: () => import('../views/RegisterSupplier.vue'),
+  },
 ]
 
 const router = new VueRouter({

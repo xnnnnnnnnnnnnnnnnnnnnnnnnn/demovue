@@ -7,9 +7,8 @@
 
       <el-container>
         <el-header  style=" border-bottom: 1px solid #ccc;">
-          <Header :collapseBtnClass="collapseBtnClass" :collapse="collapse" />
+          <HeaderSupplier :collapseBtnClass="collapseBtnClass" :collapse="collapse" />
         </el-header>
-
         <el-main>
           <!--          表示当前页面子路由会在router-view展示,需在router->index.js文件下配置子路由-->
           <router-view/>
@@ -17,17 +16,18 @@
       </el-container>
     </el-container>
   </div>
+
 </template>
 
 <script>
 
 import AsideSupplier from "@/components/AsideSupplier.vue";
-import Header from "@/components/Header";
+import HeaderSupplier from "@/components/HeaderSupplier";
 
 export default {
   name: 'ManageSupplier',
   components: {
-    Header,
+    HeaderSupplier,
     AsideSupplier,
   },
   data(){

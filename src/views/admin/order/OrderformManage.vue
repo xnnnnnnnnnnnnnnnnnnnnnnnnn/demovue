@@ -111,11 +111,15 @@ export default {
       foodid:"",
       state:"下单成功",
       time:new Date(),
-      other:"无"
+      other:"无",
+      user: localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : {userid: "xn", password: "123"}
+
     }
   },
   created(){
-    this.load()
+    if(this.user.userid=="admin" && this.user.password=="123") {
+      this.load()
+    }
   },
   methods:{
     //更新数据

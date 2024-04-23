@@ -23,6 +23,8 @@
       <el-table-column type="selection" width="55"></el-table-column>
       <el-table-column prop="supplierid" label="姓名" width="140">
       </el-table-column>
+      <el-table-column prop="password" label="密码" width="120">
+      </el-table-column>
       <el-table-column prop="phone" label="电话" width="120">
       </el-table-column>
       <el-table-column prop="other" label="其它信息">
@@ -61,6 +63,9 @@
         <el-form-item label="商户" >
           <el-input v-model="form.supplierid" autocomplete="off"></el-input>
         </el-form-item>
+        <el-form-item label="密码" >
+          <el-input v-model="form.password" autocomplete="off"></el-input>
+        </el-form-item>
         <el-form-item label="电话" >
           <el-input v-model="form.phone" autocomplete="off"></el-input>
         </el-form-item>
@@ -96,11 +101,15 @@ export default {
       form: {},
       supplierid:"",
       phone:"",
-      other:""
+      other:"",
+      password:"",
+      user: localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : {userid: "xn", password: "123"}
     }
   },
   created(){
-    this.load()
+    if(this.user.userid=="admin" && this.user.password=="123") {
+      this.load()
+    }
   },
   methods:{
     //更新数据
@@ -109,7 +118,7 @@ export default {
         params:{
           pageNum:this.pageNum,
           pageSize:this.pageSize,
-          username:this.username
+
         }
       }).then(res=>{console.log(res)
         this.tableData=res.data

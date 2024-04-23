@@ -44,7 +44,13 @@ export default {
             if (!res) {
               this.$message.error("用户名或者密码错误")
             } else {
-              this.$router.push('/userManage')
+              localStorage.setItem("user",JSON.stringify(this.user)) //存储用户信息到浏览器，后续登录可以使用用户信息
+              // console.log(this.user.userid)
+              if(this.user.userid=="admin"){
+                console.log("admin")
+                this.$router.push('/admin/userManage')
+              }
+              else {this.$router.push('/user/')}
             }
           })
         } else {
