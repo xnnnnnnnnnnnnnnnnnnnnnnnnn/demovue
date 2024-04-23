@@ -29,7 +29,6 @@ export default {
   components: {
     Header,
     AsideSupplier,
-    HelloWorld
   },
   data(){
     return {

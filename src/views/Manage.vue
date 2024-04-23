@@ -20,8 +20,7 @@
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+
 import Aside from "@/components/Aside";
 import Header from "@/components/Header";
 export default {
@@ -29,7 +28,6 @@ export default {
   components: {
     Header,
     Aside,
-    HelloWorld
   },
   data(){
     return {

@@ -20,16 +20,14 @@
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-import AsideUser from "@/components/AsideUser";
 
+import AsideUser from "@/components/AsideUser";
+import Header from "@/components/Header";
 export default {
   name: 'ManageUser',
   components: {
     Header,
     AsideUser,
-    HelloWorld
   },
   data(){
     return {
