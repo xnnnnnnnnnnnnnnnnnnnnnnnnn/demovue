@@ -9,6 +9,7 @@
         <el-header  style=" border-bottom: 1px solid #ccc;">
           <Header :collapseBtnClass="collapseBtnClass" :collapse="collapse" />
         </el-header>
+
         <el-main>
           <!--          表示当前页面子路由会在router-view展示,需在router->index.js文件下配置子路由-->
           <router-view/>
@@ -19,12 +20,17 @@
 </template>
 
 <script>
-import AsideUser from "@/components/AsideUser.vue";
-import Header from "@/components/Header.vue";
+// @ is an alias to /src
+import HelloWorld from '@/components/HelloWorld.vue'
+import AsideUser from "@/components/AsideUser";
 
 export default {
-  name: "ManageUser",
-  components: {Header, AsideUser},
+  name: 'ManageUser',
+  components: {
+    Header,
+    AsideUser,
+    HelloWorld
+  },
   data(){
     return {
       isCollapse:false,
@@ -48,6 +54,3 @@ export default {
   }
 }
 </script>
-<style scoped>
-
-</style>
