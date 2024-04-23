@@ -18,9 +18,9 @@
       </el-menu-item-group>
     </el-submenu>
     <el-submenu index="/">
-      <template slot="title"><i class="el-icon-s-custom"></i><span slot="title">个人信息</span></template>
+      <template slot="title"><i class="el-icon-s-custom"></i><span slot="title">订单信息</span></template>
       <el-menu-item-group>
-        <el-menu-item index="/supplier/order"><i class="el-icon-s-shop"/>个人信息</el-menu-item>
+        <el-menu-item index="/supplier/order"><i class="el-icon-s-shop"/>订单信息</el-menu-item>
       </el-menu-item-group>
     </el-submenu>
     <el-submenu index="/">

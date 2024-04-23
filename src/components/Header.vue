@@ -25,7 +25,6 @@ export default {
   props: {
     collapseBtnClass: String,
     collapse:Boolean,
-
   }
 
 
