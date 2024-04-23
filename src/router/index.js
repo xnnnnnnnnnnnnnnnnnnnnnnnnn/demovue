@@ -6,20 +6,20 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/',
-    name: '首页',
+    path: '/admin/',
+    name: '管理员',
     component: () => import('../views/Manage.vue'),
     // redirect:"/userManage", //直接跳转用户管理界面
     children:[
       {
         path: 'userManage',
         name: '用户管理',
-        component: () => import('../views/UserManage.vue'),
+        component: () => import('../views/admin/user/UserManage.vue'),
       },
       {
         path: 'foodManage',
         name: '食品管理',
-        component: () => import('../views/FoodManage.vue'),
+        component: () => import('../views/admin/food/FoodManage.vue'),
       },
       {
         path: 'page',
@@ -29,18 +29,70 @@ const routes = [
       {
         path: 'supplierManage',
         name: '商户管理',
-        component: () => import('../views/SupplierManage.vue'),
+        component: () => import('../views/admin/user/SupplierManage.vue'),
       },
       {
         path: 'orderformManage',
         name: '订单管理',
-        component: () => import('../views/OrderformManage.vue'),
+        component: () => import('../views/admin/order/OrderformManage.vue'),
       },
       {
         path: 'transportManage',
-        name: '订单管理',
-        component: () => import('../views/TransportManage.vue'),
+        name: '运输管理',
+        component: () => import('../views/admin/transport/TransportManage.vue'),
       },
+    ]
+  },
+  {
+    path: '/user/',
+    name: '用户',
+    component: () => import('../views/ManageUser.vue'),
+    // redirect:"/userManage", //直接跳转用户管理界面
+    children:[
+      {
+        path: 'person',
+        name: '个人管理',
+        component: () => import('../views/user/person/Person.vue'),
+      },
+      {
+        path: 'food',
+        name: '食品管理',
+        component: () => import('../views/user/food/Food.vue'),
+      },
+      {
+        path: 'order',
+        name: '订单管理',
+        component: () => import('../views/user/order/Order.vue'),
+      },
+      {
+        path: 'transport',
+        name: '订单管理',
+        component: () => import('../views/user/transport/Transport.vue'),
+      },
+    ]
+  },
+  {
+    path: '/supplier/',
+    name: '商家',
+    component: () => import('../views/ManageSupplier.vue'),
+    // redirect:"/userManage", //直接跳转用户管理界面
+    children:[
+      {
+        path: 'person',
+        name: '个人管理',
+        component: () => import('../views/supplier/person/Person.vue'),
+      },
+      {
+        path: 'food',
+        name: '食品管理',
+        component: () => import('../views/supplier/food/Food.vue'),
+      },
+      {
+        path: 'order',
+        name: '订单管理',
+        component: () => import('../views/supplier/order/Order.vue'),
+      },
+
     ]
   },
   {

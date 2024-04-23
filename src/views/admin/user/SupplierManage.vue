@@ -1,7 +1,7 @@
 <template>
   <div>
     <div  style="padding: 10px 0">
-      <el-input style="width: 200px" placeholder="请输入订单id" suffix-icon="el-icon-search"></el-input><el-button class="ml-5" >搜索</el-button>
+      <el-input style="width: 200px" placeholder="请输入商户id" suffix-icon="el-icon-search"></el-input><el-button class="ml-5" >搜索</el-button>
     </div>
     <div>
       <el-button type="primary" @click="handleAdd">新增<i class="el-icon-circle-plus-outline"/></el-button>
@@ -21,17 +21,11 @@
     </div>
     <el-table :data="tableData"  @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55"></el-table-column>
-      <el-table-column prop="orderid" label="订单编号" width="140">
+      <el-table-column prop="supplierid" label="姓名" width="140">
       </el-table-column>
-      <el-table-column prop="userid" label="用户" width="120">
+      <el-table-column prop="phone" label="电话" width="120">
       </el-table-column>
-      <el-table-column prop="foodid" label="食品" width="120">
-      </el-table-column>
-      <el-table-column prop="state" label="当前状态" width="120">
-      </el-table-column>
-      <el-table-column prop="time" label="时间" width="120">
-      </el-table-column>
-      <el-table-column prop="other" label="其它">
+      <el-table-column prop="other" label="其它信息">
       </el-table-column>
       <el-table-column label="操作">
         <template slot-scope="scope">
@@ -43,7 +37,7 @@
               icon="el-icon-info"
               icon-color="red"
               title="您确定删除吗？"
-              @confirm="handleDel(scope.row.orderid)"
+              @confirm="handleDel(scope.row.supplierid)"
           >
             <el-button type="danger" slot="reference" >删除<i class="el-icon-remove-outline"/> </el-button>
           </el-popconfirm>
@@ -64,20 +58,11 @@
 
     <el-dialog title="商户信息" :visible.sync="dialogFormVisible" width="30%" >
       <el-form label-width="80px" size="small">
-        <el-form-item label="订单编号" >
-          <el-input v-model="form.orderid" autocomplete="off"></el-input>
+        <el-form-item label="商户" >
+          <el-input v-model="form.supplierid" autocomplete="off"></el-input>
         </el-form-item>
-        <el-form-item label="用户" >
-          <el-input v-model="form.userid" autocomplete="off"></el-input>
-        </el-form-item>
-        <el-form-item label="食品" >
-          <el-input v-model="form.foodid" autocomplete="off"></el-input>
-        </el-form-item>
-        <el-form-item label="状态" >
-          <el-input v-model="form.state" autocomplete="off"></el-input>
-        </el-form-item>
-        <el-form-item label="时间" >
-          <el-input v-model="form.time" autocomplete="off"></el-input>
+        <el-form-item label="电话" >
+          <el-input v-model="form.phone" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item label="其它信息" >
           <el-input v-model="form.other" autocomplete="off"></el-input>
@@ -94,11 +79,11 @@
 
 <script>
 
-import Aside from "@/components/Aside";
-import Header from "@/components/Header";
+import Aside from "@/components/Aside.vue";
+import Header from "@/components/Header.vue";
 
 export default {
-  name: "TransportManage",
+  name: "SupplierManage",
   data(){
     return {
       tableData: [],
@@ -109,11 +94,8 @@ export default {
       dialogFormVisible: false,
       multipleSelection:[],
       form: {},
-      orderid:"",
-      userid:"",
-      foodid:"",
-      state:"",
-      time:"",
+      supplierid:"",
+      phone:"",
       other:""
     }
   },
@@ -123,7 +105,7 @@ export default {
   methods:{
     //更新数据
     load(){
-      this.request.get("/orderform/page",{
+      this.request.get("/supplier/page",{
         params:{
           pageNum:this.pageNum,
           pageSize:this.pageSize,
@@ -155,7 +137,7 @@ export default {
     //批量删除
     handleDels(){
       let ids=this.multipleSelection.map(v=>v.userid) //将对象的userid全部取出放在一起
-      this.request.post("/orderform/deletes/",ids).then(res=>{
+      this.request.post("/supplier/deletes/",ids).then(res=>{
         if(res){
           this.$message.success("批量删除成功")
           this.dialogFormVisible=false
@@ -168,7 +150,7 @@ export default {
     },
     //删除
     handleDel(id){
-      this.request.delete("/orderform/delete/"+id).then(res=>{
+      this.request.delete("/supplier/delete/"+id).then(res=>{
         if(res){
           this.$message.success("删除成功")
           this.dialogFormVisible=false
@@ -189,7 +171,7 @@ export default {
     ],
     //保存
     save(){
-      this.request.post("/orderform",this.form).then(res=>{
+      this.request.post("/supplier",this.form).then(res=>{
         if(res){
           this.$message.success("保存成功")
           this.dialogFormVisible=false
@@ -203,6 +185,7 @@ export default {
 
   }
 }
+
 
 </script>
 

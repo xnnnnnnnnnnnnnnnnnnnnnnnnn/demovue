@@ -86,8 +86,8 @@
 </template>
 
 <script>
-import Aside from "@/components/Aside";
-import Header from "@/components/Header";
+import Aside from "@/components/Aside.vue";
+import Header from "@/components/Header.vue";
 
 export default {
   name: "UserManage",
