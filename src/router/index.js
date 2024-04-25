@@ -64,11 +64,7 @@ const routes = [
         name: '订单管理',
         component: () => import('../views/user/order/Order.vue'),
       },
-      {
-        path: 'transport',
-        name: '订单管理',
-        component: () => import('../views/user/transport/Transport.vue'),
-      },
+
     ]
   },
   {

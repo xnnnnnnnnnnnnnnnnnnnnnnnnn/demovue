@@ -128,7 +128,6 @@ export default {
         params:{
           pageNum:this.pageNum,
           pageSize:this.pageSize,
-          username:this.username
         }
       }).then(res=>{console.log(res)
         this.tableData=res.data
@@ -194,7 +193,8 @@ export default {
       this.form.time=this.time.getTime()
       console.log(this.form.time)
       if(this.form.orderid==null){
-      this.form.orderid=this.time.getTime()}
+        this.form.orderid=parseInt(new Date().getDate()*1000000+new Date().getHours()*10000+new Date().getMinutes()*100+new Date().getMilliseconds())
+      }
       console.log(this.form.orderid)
       this.form.state=this.state
       if(this.form.other==null){

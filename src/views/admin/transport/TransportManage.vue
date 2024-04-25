@@ -131,7 +131,7 @@ export default {
         params:{
           pageNum:this.pageNum,
           pageSize:this.pageSize,
-          username:this.username
+
         }
       }).then(res=>{console.log(res)
         this.tableData=res.data

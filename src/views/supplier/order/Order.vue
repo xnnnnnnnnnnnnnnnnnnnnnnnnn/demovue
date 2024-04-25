@@ -108,20 +108,14 @@ export default {
       AsideSupplier,
       HeaderSupplier
     ],
-    //保存
+    //保存f
     save(row) {
       this.form=row
       console.log("保存中---=---------------")
-      this.form.time = this.time.getTime()
       if (this.form.state == "下单成功") {
-
-        this.form.number=this.tableData.number
-        console.log(this.form.time)
         if (this.form.orderid == null) {
-          this.form.orderid = this.time.getTime()
+          this.order.orderid=parseInt(new Date().getDate()*1000000+new Date().getHours()*10000+new Date().getMinutes()*100+new Date().getMilliseconds())
         }
-        console.log(this.form.orderid)
-        this.form.state = this.state
         if (this.form.other == null) {
           this.form.other = this.other
         }
@@ -129,7 +123,6 @@ export default {
         this.request.post("/orderform", this.form).then(res => {
           if (res) {
             this.$message.success("保存成功")
-            this.dialogFormVisible = false
             this.load()
           } else {
             this.$message.error("保存失败")

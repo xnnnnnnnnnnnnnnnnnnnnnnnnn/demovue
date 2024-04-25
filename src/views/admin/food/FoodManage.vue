@@ -124,11 +124,11 @@ export default {
         params:{
           pageNum:this.pageNum,
           pageSize:this.pageSize,
-          username:this.username
         }
       }).then(res=>{console.log(res)
         this.tableData=res.data
         this.total=res.total
+        console.log("----------tableData:"+this.tableData)
       })
     },
     handleSizeChange(pageSize){
