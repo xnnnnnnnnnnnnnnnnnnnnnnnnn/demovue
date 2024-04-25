@@ -1,7 +1,7 @@
 <template>
   <div>
     <div  style="padding: 10px 0">
-      <el-input style="width: 200px" placeholder="请输入食品id" suffix-icon="el-icon-search"></el-input><el-button class="ml-5" >搜索</el-button>
+      <el-input v-model="foodid" style="width: 200px" placeholder="请输入食品id" suffix-icon="el-icon-search"></el-input><el-button class="ml-5" >搜索</el-button>
     </div>
 
     <el-table :data="tableData"  @selection-change="handleSelectionChange">

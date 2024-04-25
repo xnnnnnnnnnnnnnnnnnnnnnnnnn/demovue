@@ -62,19 +62,18 @@
       </el-pagination>
     </div>
 
-    <el-dialog title="商户信息" :visible.sync="dialogFormVisible" width="30%" >
+    <el-dialog title="运输信息" :visible.sync="dialogFormVisible" width="30%" >
       <el-form label-width="80px" size="small">
-        <el-form-item label="订单编号" >
-          <el-input v-model="form.orderid" autocomplete="off"></el-input>
-        </el-form-item>
-        <el-form-item label="用户" >
-          <el-input v-model="form.userid" autocomplete="off"></el-input>
-        </el-form-item>
-        <el-form-item label="食品" >
-          <el-input v-model="form.foodid" autocomplete="off"></el-input>
-        </el-form-item>
         <el-form-item label="状态" >
-          <el-input v-model="form.state" autocomplete="off"></el-input>
+          <el-select v-model="form.state" placeholder="状态">
+            <el-option
+                v-if="form.state!=='下单成功'"
+                v-for="item in options"
+                  :key="form.state"
+                  :label="item.label"
+                  :value="item.value">
+            </el-option>
+          </el-select>
         </el-form-item>
         <el-form-item label="时间" >
           <el-input v-model="form.time" autocomplete="off"></el-input>
@@ -115,6 +114,14 @@ export default {
       state:"",
       time:"",
       other:"",
+      options: [{
+        value: "运输中",
+        label: '运输中'
+      }, {
+        value: "送货上门",
+        label: '送货上门'
+      }
+      ],
       user: localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : {userid: "xn", password: "123"}
 
     }

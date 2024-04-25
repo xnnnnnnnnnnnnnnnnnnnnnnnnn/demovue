@@ -35,27 +35,33 @@
     </div>
 
     <el-dialog title="运输信息" :visible.sync="dialogFormVisible" width="30%" >
-      <el-form label-width="80px" size="small">
-        <!--        <el-form-item label="订单编号" >-->
-        <!--          <el-input v-model="form.orderid" autocomplete="off"></el-input>-->
-        <!--        </el-form-item>-->
-        <el-form-item label="用户" >
-          <el-input v-model="form.userid" autocomplete="off"></el-input>
-        </el-form-item>
-        <el-form-item label="食品" >
-          <el-input v-model="form.foodid" autocomplete="off"></el-input>
-        </el-form-item>
-        <!--        <el-form-item label="时间" >-->
-        <!--          <el-input v-model="form.time" autocomplete="off"></el-input>-->
-        <!--        </el-form-item>-->
-        <el-form-item label="其它信息" >
-          <el-input v-model="form.other" autocomplete="off"></el-input>
-        </el-form-item>
-      </el-form>
-      <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogFormVisible = false">取 消</el-button>
-        <el-button type="primary" @click="save">确 定</el-button>
-      </div>
+<!--      <el-form label-width="80px" size="small">-->
+<!--        &lt;!&ndash;        <el-form-item label="订单编号" >&ndash;&gt;-->
+<!--        &lt;!&ndash;          <el-input v-model="form.orderid" autocomplete="off"></el-input>&ndash;&gt;-->
+<!--        &lt;!&ndash;        </el-form-item>&ndash;&gt;-->
+<!--        <el-form-item label="用户" >-->
+<!--          <el-input v-model="form.userid" autocomplete="off"></el-input>-->
+<!--        </el-form-item>-->
+<!--        <el-form-item label="食品" >-->
+<!--          <el-input v-model="form.foodid" autocomplete="off"></el-input>-->
+<!--        </el-form-item>-->
+<!--        &lt;!&ndash;        <el-form-item label="时间" >&ndash;&gt;-->
+<!--        &lt;!&ndash;          <el-input v-model="form.time" autocomplete="off"></el-input>&ndash;&gt;-->
+<!--        &lt;!&ndash;        </el-form-item>&ndash;&gt;-->
+<!--        <el-form-item label="其它信息" >-->
+<!--          <el-input v-model="form.other" autocomplete="off"></el-input>-->
+<!--        </el-form-item>-->
+<!--      </el-form>-->
+<!--      <div slot="footer" class="dialog-footer">-->
+<!--        <el-button @click="dialogFormVisible = false">取 消</el-button>-->
+<!--        <el-button type="primary" @click="save">确 定</el-button>-->
+<!--      </div>-->
+      <el-steps :active="active" finish-status="success">
+        <el-step title="下单成功"></el-step>
+        <el-step title="已发货"></el-step>
+        <el-step title="运输中"></el-step>
+        <el-step title="送货上门"></el-step>
+      </el-steps>
     </el-dialog>
 
   </div>
@@ -84,6 +90,7 @@ export default {
       state:"下单成功",
       time:new Date(),
       other:"无",
+      active:0,
       user: localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : {userid: "xn", password: "123"}
 
     }
@@ -105,6 +112,7 @@ export default {
         this.total=res.total
       })
     },
+
     handleSizeChange(pageSize){
       this.pageSize=pageSize
       this.load()
@@ -116,6 +124,18 @@ export default {
    //详情
     handleEdit(row){
       this.form=row
+      if(this.form.state=="下单成功"){
+        this.active=0
+      }else if(this.form.state=="已发货"){
+        this.active=1
+      }else if(this.form.state=="运输中"){
+        this.active=2
+      }else if(this.form.state=="送货上门"){
+        this.active=3
+      }else{
+        this.active=2
+      }
+
       this.dialogFormVisible=true //显示弹窗
     },
 
