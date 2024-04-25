@@ -194,7 +194,7 @@ export default {
       this.form.time=this.time.getTime()
       console.log(this.form.time)
       if(this.form.orderid==null){
-      this.form.orderid=this.total+1}
+      this.form.orderid=this.time.getTime()}
       console.log(this.form.orderid)
       this.form.state=this.state
       if(this.form.other==null){

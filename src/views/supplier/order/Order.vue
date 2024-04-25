@@ -3,19 +3,7 @@
     <div  style="padding: 10px 0">
       <el-input style="width: 200px" placeholder="请输入订单id" suffix-icon="el-icon-search"></el-input><el-button class="ml-5" >搜索</el-button>
     </div>
-    <div>
-       <el-popconfirm
-          class="ml-5"
-          confirm-button-text='确定'
-          cancel-button-text='取消'
-          icon="el-icon-info"
-          icon-color="blue"
-          title="您确定批量发货吗？"
-          @confirm="handleDels"
-      >
-        <el-button type="danger" slot="reference" >批量发货<i class="el-icon-circle-remove-outline"/></el-button>
-      </el-popconfirm>
-    </div>
+
     <el-table :data="tableData"  @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55"></el-table-column>
       <el-table-column prop="orderid" label="订单编号" width="140">
@@ -32,7 +20,7 @@
       </el-table-column>
       <el-table-column label="操作">
         <template slot-scope="scope">
-          <el-button type="success" @click="handleEdit(scope.row)">发货<i class="el-icon-edit"/> </el-button>
+          <el-button type="success" @click="save(scope.row)">发货<i class="el-icon-edit"/> </el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -108,21 +96,9 @@ export default {
     //编辑
     handleEdit(row){
       this.form=row
+      this.save()
     },
-    //批量编辑
-    handleDels(){
-      let ids=this.multipleSelection.map(v=>v.userid) //将对象的userid全部取出放在一起
-      this.request.post("/orderform/deletes/",ids).then(res=>{
-        if(res){
-          this.$message.success("批量删除成功")
-          this.dialogFormVisible=false
-          this.load()
-        }
-        else{
-          this.$message.error("删除失败")
-        }
-      })
-    },
+
 
     //多选框
     handleSelectionChange(val){
@@ -133,20 +109,23 @@ export default {
       HeaderSupplier
     ],
     //保存
-    save() {
+    save(row) {
+      this.form=row
+      console.log("保存中---=---------------")
       this.form.time = this.time.getTime()
-      if (this.form.state != "已发货") {
-        this.form.state = "已发货"
+      if (this.form.state == "下单成功") {
+
         this.form.number=this.tableData.number
         console.log(this.form.time)
         if (this.form.orderid == null) {
-          this.form.orderid = this.total + 1
+          this.form.orderid = this.time.getTime()
         }
         console.log(this.form.orderid)
         this.form.state = this.state
         if (this.form.other == null) {
           this.form.other = this.other
         }
+        this.form.state = "已发货"
         this.request.post("/orderform", this.form).then(res => {
           if (res) {
             this.$message.success("保存成功")
@@ -156,6 +135,9 @@ export default {
             this.$message.error("保存失败")
           }
         })
+      }else{
+        this.$message.error("已经发货成功，无需再次发货")
+        this.load()
       }
     }
   }
