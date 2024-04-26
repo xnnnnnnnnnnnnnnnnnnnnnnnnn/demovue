@@ -64,7 +64,16 @@ const routes = [
         name: '订单管理',
         component: () => import('../views/user/order/Order.vue'),
       },
-
+      {
+        path: 'appeal',
+        name: '订单管理',
+        component: () => import('../views/user/person/appeal.vue'),
+      },
+      {
+        path: 'person',
+        name: '个人管理',
+        component: () => import('../views/user/person/Person.vue'),
+      },
     ]
   },
   {
@@ -119,6 +128,7 @@ const routes = [
     name: '商户注册',
     component: () => import('../views/RegisterSupplier.vue'),
   },
+
 ]
 
 const router = new VueRouter({

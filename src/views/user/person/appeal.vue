@@ -19,7 +19,6 @@
       <el-table-column label="操作">
         <template slot-scope="scope">
           <el-button type="success" @click="handleEdit(scope.row)">查看详情 </el-button>
-          <el-button type="danger" @click="shensu(scope.row)">发起申诉</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -43,28 +42,16 @@
         <el-step title="送货上门"></el-step>
       </el-steps>
     </el-dialog>
-    <el-dialog title="申诉信息" :visible.sync="dialogFormVisible2" width="30%" >
-      <el-form label-width="80px" size="small">
-        <el-form-item label="申诉原因" >
-          <el-input v-model="form.other" autocomplete="off"></el-input>
-        </el-form-item>
-      </el-form>
-      <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogFormVisible2 = false">取 消</el-button>
-        <el-button type="primary" @click="save">确 定</el-button>
-      </div>
-    </el-dialog>
+
 
   </div>
 </template>
 
 <script>
-
-import AsideUser from "@/components/AsideUser.vue";
-import Header from "@/components/Header.vue";
-
+import Header from "@/components/Header";
+import AsideUser from "@/components/AsideUser";
 export default {
-  name: "Order",
+  name: "appeal",
   data(){
     return {
       tableData: [],
@@ -73,7 +60,7 @@ export default {
       pageNum: 1,
       pageSize: 5,
       dialogFormVisible: false,
-      dialogFormVisible2: false,
+
       multipleSelection:[],
       form: {},
       orderid:"",
@@ -93,7 +80,7 @@ export default {
   methods:{
     //更新数据
     load(){
-      this.request.get("/orderform/page3",{
+      this.request.get("/orderform/page4",{
         params:{
           pageNum:this.pageNum,
           pageSize:this.pageSize,
@@ -113,7 +100,7 @@ export default {
       this.pageNum=pageNum
       this.load()
     },
-   //详情
+    //详情
     handleEdit(row){
       this.form=row
       if(this.form.state=="下单成功"){
@@ -130,12 +117,7 @@ export default {
 
       this.dialogFormVisible=true //显示弹窗
     },
-    shensu(row){
-      this.form=row
-      this.form.state="待审核"
-      this.dialogFormVisible2=true
 
-    },
 
     //多选框
     handleSelectionChange(val){
@@ -147,25 +129,16 @@ export default {
     ],
     //保存
     save(){
-      // this.form.time=this.time.getYear()+this.time.getMonth()+this.time.getDate()+this.time.getHours()+this.time.getMinutes()+this.time.getSeconds()
-      if(this.form.time==null) {
+      if(this.form.time==null){
         this.form.time = this.$moment(new Date().getTime()).format('YYYY-MM-DD HH:mm:ss')
-        console.log(this.form.time)
       }
-      if(this.form.orderid==null){
-        this.form.orderid=parseInt(new Date().getDate()*1000000+new Date().getHours()*10000+new Date().getMinutes()*100+new Date().getMilliseconds())
-      }
-      console.log(this.form.orderid)
-      if(this.form.state==null){
-        this.form.state="下单成功"
-      }
+
       if(this.form.other==null){
         this.form.other=this.other}
       this.request.post("/orderform",this.form).then(res=>{
         if(res){
           this.$message.success("保存成功")
           this.dialogFormVisible=false
-          this.dialogFormVisible2=false
           this.load()
         }
         else{
@@ -176,9 +149,9 @@ export default {
 
   }
 }
-
 </script>
 
 <style scoped>
+
 
 </style>
