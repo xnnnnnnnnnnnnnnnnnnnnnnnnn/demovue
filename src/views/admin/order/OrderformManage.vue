@@ -73,12 +73,6 @@
         <el-form-item label="食品" >
           <el-input v-model="form.foodid" autocomplete="off"></el-input>
         </el-form-item>
-<!--        <el-form-item label="时间" >-->
-<!--          <el-input v-model="form.time" autocomplete="off"></el-input>-->
-<!--        </el-form-item>-->
-        <el-form-item label="其它信息" >
-          <el-input v-model="form.other" autocomplete="off"></el-input>
-        </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">取 消</el-button>
@@ -98,6 +92,7 @@ export default {
   name: "OrderformManage",
   data(){
     return {
+      food:{},
       tableData: [],
       sideWidth: 200,
       total: 0,
@@ -109,7 +104,7 @@ export default {
       orderid:"",
       userid:"",
       foodid:"",
-      state:"下单成功",
+      state:"",
       time:new Date(),
       other:"无",
       user: localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : {userid: "xn", password: "123"}
@@ -189,16 +184,14 @@ export default {
     ],
     //保存
     save(){
-      // this.form.time=this.time.getYear()+this.time.getMonth()+this.time.getDate()+this.time.getHours()+this.time.getMinutes()+this.time.getSeconds()
-      this.form.time=this.time.getTime()
-      console.log(this.form.time)
       if(this.form.orderid==null){
         this.form.orderid=parseInt(new Date().getDate()*1000000+new Date().getHours()*10000+new Date().getMinutes()*100+new Date().getMilliseconds())
       }
-      console.log(this.form.orderid)
-      this.form.state=this.state
-      if(this.form.other==null){
-      this.form.other=this.other}
+      if(this.form.time==null) {
+        this.form.time = this.$moment(new Date().getTime()).format('YYYY-MM-DD HH:mm:ss')
+      }
+      if(this.form.state=null){this.form.state="下单成功"}
+
       this.request.post("/orderform",this.form).then(res=>{
         if(res){
           this.$message.success("保存成功")
@@ -209,7 +202,7 @@ export default {
           this.$message.error("保存失败")
         }
       })
-    }
+    },
 
   }
 }

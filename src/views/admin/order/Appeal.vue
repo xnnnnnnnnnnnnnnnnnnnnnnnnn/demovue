@@ -18,8 +18,9 @@
       </el-table-column>
       <el-table-column label="操作">
         <template slot-scope="scope">
-          <el-button type="success" @click="handleEdit(scope.row)">查看详情 </el-button>
-          <el-button type="danger" @click="shensu(scope.row)">发起申诉 </el-button>
+          <el-button type="success" @click="pass(scope.row)">通过</el-button>
+          <el-button type="danger" @click="no(scope.row)">失败</el-button>
+          <el-button type="warning" @click="handleEdit(scope.row)">详情</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -37,34 +38,22 @@
 
     <el-dialog title="运输信息" :visible.sync="dialogFormVisible" width="30%" >
       <el-steps :active="active" finish-status="success">
-        <el-step title="发起审核"></el-step>
+        <el-step title="审核未通过"></el-step>
         <el-step title="待审核"></el-step>
         <el-step title="审核通过"></el-step>
         <el-step title="退款中"></el-step>
         <el-step title="退款成功"></el-step>
       </el-steps>
     </el-dialog>
-    <el-dialog title="申诉信息" :visible.sync="dialogFormVisible2" width="30%" >
-      <el-form label-width="80px" size="small">
-        <el-form-item label="申诉原因" >
-          <el-input v-model="form.other" autocomplete="off"></el-input>
-        </el-form-item>
-      </el-form>
-      <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogFormVisible2 = false">取 消</el-button>
-        <el-button type="primary" @click="save">确 定</el-button>
-      </div>
-    </el-dialog>
-
 
   </div>
 </template>
 
 <script>
 import Header from "@/components/Header";
-import AsideUser from "@/components/AsideUser";
+import Aside from "@/components/Aside";
 export default {
-  name: "appeal",
+  name: "Appeal",
   data(){
     return {
       tableData: [],
@@ -73,7 +62,7 @@ export default {
       pageNum: 1,
       pageSize: 5,
       dialogFormVisible: false,
-      dialogFormVisible2:false,
+
       multipleSelection:[],
       form: {},
       orderid:"",
@@ -88,16 +77,17 @@ export default {
     }
   },
   created(){
-    this.load()
+    if(this.user.userid=="admin" && this.user.password=="123") {
+      this.load()
+    }
   },
   methods:{
     //更新数据
     load(){
-      this.request.get("/orderform/page4",{
+      this.request.get("/orderform/page5",{
         params:{
           pageNum:this.pageNum,
           pageSize:this.pageSize,
-          userid:this.user.userid
         }
       }).then(res=>{console.log(res)
         this.tableData=res.data
@@ -107,13 +97,16 @@ export default {
 
     handleSizeChange(pageSize){
       this.pageSize=pageSize
-      this.load()
+      if(this.user.userid=="admin" && this.user.password=="123") {
+        this.load()
+      }
     },
     handleCurrentChange(pageNum){
       this.pageNum=pageNum
-      this.load()
+      if(this.user.userid=="admin" && this.user.password=="123") {
+        this.load()
+      }
     },
-    //详情
     handleEdit(row){
       this.form=row
       if(this.form.state=="待审核"){
@@ -130,30 +123,49 @@ export default {
       this.dialogFormVisible=true //显示弹窗
     },
 
+    //通过
+    pass(row){
+      this.form=row
+      if(this.form.state=="待审核"){
+        this.form.state="审核通过"
+        this.save()
+        this.$message.success("审核成功")
+      }
+      else{
+        this.$message.warning("已经审核成功，无需重复审核")
+      }
+
+    },
+
+    //拒绝
+    no(row){
+      this.form=row
+      if(this.form.state=="退款成功"){
+        this.$message.success("订单退款已通过，无法更改")
+      }else{
+        this.form.state="审核失败"
+        this.save()
+        this.$message.error("审核失败")
+      }
+
+    },
     //多选框
     handleSelectionChange(val){
       this.multipleSelection=val
     },
     components:[
-      AsideUser,
+      Aside,
       Header
     ],
-    shensu(row){
-      this.form=row
-      this.form.state="待审核"
-      this.dialogFormVisible2=true
-    },
     //保存
     save(){
       if(this.form.time==null){
         this.form.time = this.$moment(new Date().getTime()).format('YYYY-MM-DD HH:mm:ss')
       }
-
       if(this.form.other==null){
         this.form.other=this.other}
       this.request.post("/orderform",this.form).then(res=>{
         if(res){
-          this.$message.success("保存成功")
           this.dialogFormVisible=false
           this.load()
         }

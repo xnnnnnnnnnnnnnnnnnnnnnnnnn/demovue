@@ -4,7 +4,6 @@
       <el-input style="width: 200px" placeholder="请输入订单id" suffix-icon="el-icon-search"></el-input><el-button class="ml-5" >搜索</el-button>
     </div>
     <div>
-      <el-button type="primary" @click="handleAdd">新增<i class="el-icon-circle-plus-outline"/></el-button>
       <el-popconfirm
           class="ml-5"
           confirm-button-text='确定'
@@ -78,9 +77,7 @@
         <el-form-item label="时间" >
           <el-input v-model="form.time" autocomplete="off"></el-input>
         </el-form-item>
-        <el-form-item label="其它信息" >
-          <el-input v-model="form.other" autocomplete="off"></el-input>
-        </el-form-item>
+
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">取 消</el-button>
@@ -111,7 +108,7 @@ export default {
       orderid:"",
       userid:"",
       foodid:"",
-      state:"",
+      state:"待审核",
       time:"",
       other:"",
       options: [{
@@ -120,6 +117,12 @@ export default {
       }, {
         value: "送货上门",
         label: '送货上门'
+      }, {
+        value: "退款中",
+        label: '商家退款中'
+      }, {
+        value: "退款成功",
+        label: '退款成功'
       }
       ],
       user: localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : {userid: "xn", password: "123"}

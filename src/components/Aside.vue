@@ -25,6 +25,9 @@
       <el-menu-item-group>
         <el-menu-item index="/admin/orderformManage"><i class="el-icon-menu"/>订单信息</el-menu-item>
       </el-menu-item-group>
+      <el-menu-item-group>
+        <el-menu-item index="/admin/appeal"><i class="el-icon-menu"/>申诉信息</el-menu-item>
+      </el-menu-item-group>
     </el-submenu>
     <el-submenu index="/">
       <template slot="title"><i class="el-icon-setting"></i><span slot="title">运输信息</span></template>

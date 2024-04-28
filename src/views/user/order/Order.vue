@@ -84,7 +84,6 @@ export default {
       other:"无",
       active:0,
       user: localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : {userid: "xn", password: "123"}
-
     }
   },
   created(){
@@ -134,7 +133,6 @@ export default {
       this.form=row
       this.form.state="待审核"
       this.dialogFormVisible2=true
-
     },
 
     //多选框

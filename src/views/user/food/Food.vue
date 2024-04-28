@@ -94,9 +94,7 @@ export default {
       this.order.foodid=this.form.foodid
       this.order.state="下单成功"
       this.order.other=this.form.other
-      this.order.time=null
-      // console.log(typeof (this.order.time))
-      console.log("_------------------"+this.order.time)
+      this.order.time=this.$moment(new Date().getTime()).format('YYYY-MM-DD HH:mm:ss')
       this.request.post("/orderform",this.order).then(
           res=>{console.log(res)
             this.$message.success("保存成功")

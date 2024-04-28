@@ -37,6 +37,11 @@ const routes = [
         component: () => import('../views/admin/order/OrderformManage.vue'),
       },
       {
+        path: 'appeal',
+        name: '运输管理',
+        component: () => import('../views/admin/order/Appeal'),
+      },
+      {
         path: 'transportManage',
         name: '运输管理',
         component: () => import('../views/admin/transport/TransportManage.vue'),

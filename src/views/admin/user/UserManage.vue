@@ -25,7 +25,7 @@
     </el-table-column>
     <el-table-column prop="phone" label="电话" width="120">
     </el-table-column>
-    <el-table-column prop="address" label="地址">
+    <el-table-column prop="adress" label="地址">
     </el-table-column>
     <el-table-column prop="other" label="其它信息">
     </el-table-column>
