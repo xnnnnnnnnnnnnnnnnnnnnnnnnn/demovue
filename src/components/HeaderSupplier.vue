@@ -11,7 +11,8 @@
       <span>{{ supplier.supplierid }}</span>
       <i class="el-icon-arrow-down" style="margin-left: 5px"></i>
       <el-dropdown-menu slot="dropdown">
-        <el-dropdown-item>个人信息</el-dropdown-item>
+        <el-dropdown-item>
+          <span style="text-decoration: none" @click="person">个人信息</span></el-dropdown-item>
         <el-dropdown-item>
           <span style="text-decoration: none" @click="logout">退出</span>
         </el-dropdown-item>
@@ -38,6 +39,9 @@ export default {
       this.$router.push("/supplier/login")
       localStorage.removeItem("supplier")
       this.$message.success("退出成功")
+    },
+    person(){
+      this.$router.push("/supplier/person")
     }
   }
 }

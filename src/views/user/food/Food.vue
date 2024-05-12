@@ -12,7 +12,7 @@
       </el-table-column>
       <el-table-column prop="supplierid" label="商家" width="120">
       </el-table-column>
-      <el-table-column prop="other" label="其它信息">
+      <el-table-column prop="other" label="冷藏条件">
       </el-table-column>
       <el-table-column label="操作">
         <template slot-scope="scope">

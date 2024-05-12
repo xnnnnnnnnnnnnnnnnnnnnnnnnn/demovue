@@ -102,6 +102,11 @@ const routes = [
         name: '订单',
         component: () => import('../views/supplier/order/Order.vue'),
       },
+      {
+        path: 'appeal',
+        name: '运输管理',
+        component: () => import('../views/supplier/person/appeal.vue'),
+      },
 
     ]
   },

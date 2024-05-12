@@ -4,7 +4,6 @@
       <el-input style="width: 200px" placeholder="请输入订单id" suffix-icon="el-icon-search"></el-input><el-button class="ml-5" >搜索</el-button>
     </div>
     <div>
-      <el-button type="primary" @click="handleAdd">新增<i class="el-icon-circle-plus-outline"/></el-button>
       <el-popconfirm
           class="ml-5"
           confirm-button-text='确定'

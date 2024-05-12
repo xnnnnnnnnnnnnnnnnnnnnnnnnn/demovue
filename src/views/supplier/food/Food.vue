@@ -25,7 +25,7 @@
       </el-table-column>
       <el-table-column prop="number" label="数量" width="120">
       </el-table-column>
-      <el-table-column prop="other" label="其它信息">
+      <el-table-column prop="other" label="冷藏条件">
       </el-table-column>
       <el-table-column label="操作">
         <template slot-scope="scope">
@@ -64,7 +64,7 @@
         <el-form-item label="数量" >
           <el-input v-model="form.number" autocomplete="off"></el-input>
         </el-form-item>
-        <el-form-item label="其它信息" >
+        <el-form-item label="冷藏条件" >
           <el-input v-model="form.other" autocomplete="off"></el-input>
         </el-form-item>
       </el-form>
